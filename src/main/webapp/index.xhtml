@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>
+.form-style {
+	margin-left: 50px;
+}
+
+.razao-style {
+	width: 300px;
+}
+
+.radio-style td {
+	padding-right: 10px;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+<h:body>
+
+	<h:form id="frm">
+		<p:messages />
+		<p:outputPanel deferred="true">
+			<h1>Cadastro de contrato de treinamentos</h1>
+		</p:outputPanel>
+
+		<h:panelGrid columns="2" cellpadding="5" styleClass="form-style">
+
+			<p:outputLabel value="Razão Social" for="razaoSocial" />
+			<p:inputText id="razaoSocial" required="true" maxlength="70" styleClass="razao-style"
+				value="#{cadastroTreinamentosBean.razaoSocial}" />
+
+			<p:outputLabel value="CNPJ" for="cnpj" />
+			<p:inputMask id="cnpj" mask="99.999.999/9999-99" required="true" value="#{cadastroTreinamentosBean.cnpj}" />
+
+			<p:outputLabel value="Cidade do contrato" for="cidadeContrato" />
+			<p:autoComplete id="cidadeContrato" required="true" value="#{cadastroTreinamentosBean.cidadeContrato}"
+				forceSelection="false" completeMethod="#{cadastroTreinamentosBean.sugerirCidades}" minQueryLength="1"
+				dropdown="true" />
+
+			<p:outputLabel value="Modalidade" for="modalidade" />
+			<p:selectOneRadio id="modalidade" required="true" styleClass="radio-style"
+				value="#{cadastroTreinamentosBean.modalidade}">
+				<f:selectItem itemLabel="EAD" itemValue="EAD" />
+				<f:selectItem itemLabel="Presencial" itemValue="Presencial" />
+			</p:selectOneRadio>
+
+			<p:outputLabel value="Data do contrato" for="dataContrato" />
+			<p:calendar id="dataContrato" required="true" readonlyInput="true" pattern="dd/MM/yyyy"
+				value="#{cadastroTreinamentosBean.dataContrato}" />
+
+			<p:outputLabel value="Valor do contrato" for="valorContrato" />
+			<p:inputText id="valorContrato" required="true" value="#{cadastroTreinamentosBean.valorContrato}" />
+
+			<p:outputLabel value="Método de pagamento" for="metodoPagameto" />
+			<p:selectOneMenu id="metodoPagameto" required="true" value="#{cadastroTreinamentosBean.metodoPagamento}">
+				<p:ajax event="change" process="@this" update="formaPagameto"
+					listener="#{cadastroTreinamentosBean.carregarFormasPagamento}" partialSubmit="true" />
+				<f:selectItem itemLabel="Selecione..." />
+				<f:selectItems value="#{cadastroTreinamentosBean.metodoPagamentoLista}" var="metodosPagamento"
+					itemLabel="#{metodosPagamento}" itemValue="#{metodosPagamento}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Forma de pagamento" for="formaPagameto" />
+			<p:selectOneMenu id="formaPagameto" required="true" value="#{cadastroTreinamentosBean.formaPagamento}">
+				<f:selectItem itemLabel="Selecione..." />
+				<f:selectItems value="#{cadastroTreinamentosBean.formaPagamentoLista}" var="formasPagamento"
+					itemLabel="#{formasPagamento}" itemValue="#{formasPagamento}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid>
+
+		</h:panelGrid>
+		<h:panelGrid styleClass="form-style">
+			<p:outputPanel deferred="true">
+				<h3>Cursos contratados</h3>
+			</p:outputPanel>
+
+			<p:selectManyCheckbox id="cursos" required="true" layout="pageDirection" value="#{cadastroTreinamentosBean.cursos}">
+				<f:selectItem itemLabel="Fundamentos Java e Orientação a Objetos" itemValue="1" />
+				<f:selectItem itemLabel="Desenvolvimento Web com JSF 2" itemValue="2" />
+				<f:selectItem itemLabel="Persistencia de Dados com JPA 2 e Hibernate" itemValue="3" />
+				<f:selectItem itemLabel="Gerenciamento Ágil de Projetos com Scrum" itemValue="4" />
+			</p:selectManyCheckbox>
+
+			<h:outputText value=" " />
+			<p:commandButton value="Cadastrar" update="@form" action="#{cadastroTreinamentosBean.cadastrar}" />
+		</h:panelGrid>
+
+	</h:form>
+
+</h:body>
+</html>
