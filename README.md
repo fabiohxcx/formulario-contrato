@@ -12,7 +12,7 @@ Formulário em JSF + Primefaces
 - Campo de autossugestão com AutoComplete
 - Máscara de entrada com InputMask 
 - Notificações com AjaxStatus
-- Máscara de moeda
+- Máscara de moeda com jQuery maskMoney
 - Utilização do tabView
 
 Tarefas futuras:
