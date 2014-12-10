@@ -13,7 +13,7 @@ Formulário em JSF + Primefaces
 - Máscara de entrada com InputMask 
 - Notificações com AjaxStatus
 - Máscara de moeda
-
+- Utilização do tabView
 
 Tarefas futuras:
 
