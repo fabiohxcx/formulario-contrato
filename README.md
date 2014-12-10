@@ -11,8 +11,9 @@ Formulário em JSF + Primefaces
 - Caixa de checagem múltipla com SelectManyCheckbox 
 - Campo de autossugestão com AutoComplete
 - Máscara de entrada com InputMask 
+- Notificações com AjaxStatus
+- Máscara de moeda
 
 
 Tarefas futuras:
-- Notificações com AjaxStatus
-- Máscara de moeda
+

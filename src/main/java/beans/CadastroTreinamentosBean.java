@@ -22,17 +22,15 @@ public class CadastroTreinamentosBean {
 
 	private List<String> metodoPagamentoLista = new ArrayList<>();
 	private List<String> formaPagamentoLista = new ArrayList<>();
-	private List<String> cidadesLista = new ArrayList<>(); 
-	
-	
+	private List<String> cidadesLista = new ArrayList<>();
 
 	public CadastroTreinamentosBean() {
 		modalidade = "EAD";
-		
+
 		metodoPagamentoLista.add("cartão de crédito");
 		metodoPagamentoLista.add("cheque");
 		metodoPagamentoLista.add("boleto");
-		
+
 		cidadesLista.add("Rio de Janeiro");
 		cidadesLista.add("Foz de Iguaçu");
 		cidadesLista.add("São Paulo");
@@ -42,7 +40,7 @@ public class CadastroTreinamentosBean {
 		cidadesLista.add("Fortaleza");
 		cidadesLista.add("Natal");
 		cidadesLista.add("Armação dos Búzios");
-		cidadesLista.add("Manaus");		
+		cidadesLista.add("Manaus");
 	}
 
 	public String getRazaoSocial() {
@@ -154,19 +152,21 @@ public class CadastroTreinamentosBean {
 
 	public List<String> sugerirCidades(String consulta) {
 		List<String> cidadesSugeridas = new ArrayList<>();
-		
-		for (String cidade: this.cidadesLista) {
-			if(cidade.toLowerCase().startsWith(consulta.toLowerCase())){
+
+		for (String cidade : this.cidadesLista) {
+			if (cidade.toLowerCase().startsWith(consulta.toLowerCase())) {
 				cidadesSugeridas.add(cidade);
-			}			
-		}		
+			}
+		}
 		return cidadesSugeridas;
 	}
-	
-	public void carregarFormasPagamento(){
+
+	public void carregarFormasPagamento() throws InterruptedException {
 		formaPagamentoLista.clear();
-		
-		if("cartão de crédito".equals(this.metodoPagamento)){
+
+		Thread.sleep(1000);
+
+		if ("cartão de crédito".equals(this.metodoPagamento)) {
 			formaPagamentoLista.add("À vista");
 			formaPagamentoLista.add("1x");
 			formaPagamentoLista.add("2x");
@@ -174,12 +174,12 @@ public class CadastroTreinamentosBean {
 			formaPagamentoLista.add("4x");
 			formaPagamentoLista.add("5x");
 			formaPagamentoLista.add("6x");
-		} else if("cheque".equals(this.metodoPagamento)){
+		} else if ("cheque".equals(this.metodoPagamento)) {
 			formaPagamentoLista.add("À vista");
 			formaPagamentoLista.add("Entrada + 30 dias");
-		}else if("boleto".equals(this.metodoPagamento)){
+		} else if ("boleto".equals(this.metodoPagamento)) {
 			formaPagamentoLista.add("À vista");
-		}		
+		}
 	}
 
 }

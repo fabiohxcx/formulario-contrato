@@ -20,9 +20,26 @@
 .ui-widget, .ui-widget .ui-widget {
 	font-size: 90%;
 }
+
+.ajax-status {
+	position: fixed;
+	top: 95px;
+	left: 10px;
+	width: 35px;
+	height: 35px;
+}
 </style>
+	<h:outputScript library="js" name="jquery.maskMoney.min.js" />
 </h:head>
 <h:body>
+	<p:ajaxStatus styleClass="ajax-status">
+		<f:facet name="start">
+			<h:graphicImage library="img" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
 
 	<h:form id="frm">
 		<p:messages />
@@ -56,7 +73,7 @@
 				value="#{cadastroTreinamentosBean.dataContrato}" />
 
 			<p:outputLabel value="Valor do contrato" for="valorContrato" />
-			<p:inputText id="valorContrato" required="true" value="#{cadastroTreinamentosBean.valorContrato}" />
+			<p:inputText id="valorContrato" styleClass="moeda" required="true" value="#{cadastroTreinamentosBean.valorContrato}" />
 
 			<p:outputLabel value="Método de pagamento" for="metodoPagameto" />
 			<p:selectOneMenu id="metodoPagameto" required="true" value="#{cadastroTreinamentosBean.metodoPagamento}">
@@ -94,6 +111,18 @@
 		</h:panelGrid>
 
 	</h:form>
+	<script>
+		function configurarMoeda() {
+			$(".moeda").maskMoney({
+				decimal : ",",
+				thousands : '.',
+				allowZero : true
+			});
+		}
 
+		$(document).ready(function() {
+			configurarMoeda();
+		});
+	</script>
 </h:body>
 </html>
