@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -45,6 +47,10 @@ public class ClienteBean implements Serializable {
 	
 	public void excluir(){
 		clientes.remove(cliente);
+		
+		FacesContext context =  FacesContext.getCurrentInstance();		
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente excluído.", "Cliente excluído com sucesso.");
+		context.addMessage("avisoExclusao", msg);
 	}
 
 }
