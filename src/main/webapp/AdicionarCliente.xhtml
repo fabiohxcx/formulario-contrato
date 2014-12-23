@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+<h:body>
+	<style>
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 90%;
+}
+</style>
+	<script>
+		function tratarInclusaoCliente(args) {
+			if (!args.validationFailed) {
+				PF('inclusaoClienteDialog').hide();
+			}
+		}
+	</script>
+
+	<h:form id="frm">
+		<p:commandButton value="Adicionar cliente" onclick="PF('inclusaoClienteDialog').show();" />
+
+		<p:dataTable value="#{clienteBean.clientes}" style="margin-top: 20px;width: 800px;" var="cliente" id="clientesTable"
+			emptyMessage="Não existem clientes.">
+			<p:column headerText="Nome">
+				<h:outputText value="#{cliente.nome}" />
+			</p:column>
+			<p:column headerText="Telefone">
+				<h:outputText value="#{cliente.telefone}" />
+			</p:column>
+			<p:column width="40">
+				<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmaExclusao').show();" process="@this">
+					<f:setPropertyActionListener target="#{clienteBean.cliente}" value="#{cliente}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+
+		<!-- Dialog para Inclusão de produto -->
+		<p:dialog header="Inclusão de cliente" widgetVar="inclusaoClienteDialog" modal="true" resizable="false">
+			<h:panelGroup id="inclusaoPanel">
+				<p:messages id="mensagemInclusao" />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}" required="true" requiredMessage="Informe o nome" />
+
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask value="#{clienteBean.cliente.telefone}" mask="(99) 9999-9999" id="telefone" required="true"
+						requiredMessage="Informe o telefone" />
+
+					<p:commandButton value="Incluir" action="#{clienteBean.incluir}"
+						update="clientesTable inclusaoPanel mensagemInclusao" oncomplete="tratarInclusaoCliente(args)" />
+				</h:panelGrid>
+			</h:panelGroup>
+		</p:dialog>
+
+		<!-- Dialog para exclusao -->
+		<p:confirmDialog header="Exclusão de cliente" message="Tem certeza que deseja excluir o cliente?"
+			widgetVar="confirmaExclusao">
+			<p:commandButton value="Sim" update="clientesTable" oncomplete="PF('confirmaExclusao').hide();"
+				action="#{clienteBean.excluir}" process="@this" />
+			<p:button value="Não" onclick="PF('confirmaExclusao').hide(); return false;" />
+		</p:confirmDialog>
+
+
+
+	</h:form>
+
+</h:body>
+</html>
